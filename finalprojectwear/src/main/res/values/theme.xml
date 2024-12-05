@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="Theme.FinalProject" parent="Theme.Material3.DayNight">
+        <!-- General theme attributes -->
+    </style>
+
+    <!-- Activity-specific theme -->
+    <style name="Theme.FinalProject.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Activity-specific theme attributes -->
+    </style>
+</resources>
