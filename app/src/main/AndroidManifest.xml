@@ -2,7 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Permissions -->
+    <!-- Remove the watch feature if it's incorrectly merged -->
+<!--    <uses-feature-->
+<!--        android:name="android.hardware.type.watch"-->
+<!--        tools:node="remove" />-->
+
+    <!-- Existing permissions -->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
@@ -15,6 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalProject"
         tools:targetApi="31">
+
 
         <activity
             android:name=".MainActivity"

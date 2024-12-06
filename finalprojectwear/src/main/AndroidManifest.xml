@@ -4,6 +4,7 @@
     <!-- Declare that this app is specifically for Wear OS -->
     <uses-feature android:name="android.hardware.type.watch" android:required="true" />
 
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
@@ -11,18 +12,17 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.FinalProject"
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         android:supportsRtl="true">
 
         <!-- Indicate this is a standalone Wear OS app -->
         <meta-data
             android:name="com.google.android.wearable.standalone"
-            android:value="true" />
+            android:value="false" />
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.FinalProject.NoActionBar">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements MessageClient.OnM
     private void displayNotification(String message) {
         // Build and display a notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "weather_channel")
-                .setSmallIcon(R.drawable.ic_notification) // Ensure this icon exists in res/drawable
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle("Weather Info Received")
                 .setContentText("Tap to view details")
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
