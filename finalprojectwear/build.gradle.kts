@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.finalprojectwear"
+    namespace = "com.example.finalproject"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.finalprojectwear"
+        applicationId = "com.example.finalproject"
         minSdk = 30 // Wear OS 3 requires minSdk 30
         targetSdk = 33
         versionCode = 1

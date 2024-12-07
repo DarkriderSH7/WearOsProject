@@ -1,4 +1,4 @@
-package com.example.finalprojectwear;
+package com.example.finalproject;
 
 import android.os.Bundle;
 import android.app.NotificationChannel;

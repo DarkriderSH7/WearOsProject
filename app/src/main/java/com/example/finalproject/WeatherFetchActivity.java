@@ -3,8 +3,7 @@ package com.example.finalproject;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.Wearable;
@@ -28,7 +27,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class MainActivity extends AppCompatActivity {
+public class WeatherFetchActivity extends AppCompatActivity {
     private EditText etCityName;
     private Button btnFetchWeather, btnSendToWatch;
     private TextView tvCityName, tvWeatherDescription, tvWeatherTemperature, tvWeatherPressure;
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         // Set OnClickListener for "Send to Watch" Button
         btnSendToWatch.setOnClickListener(v -> {
             if (selectedCards.isEmpty()) {
-                Toast.makeText(MainActivity.this, "No attributes selected to send.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WeatherFetchActivity.this, "No attributes selected to send.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -109,23 +108,23 @@ public class MainActivity extends AppCompatActivity {
             String message = selectedAttributes.toString();
 
             // Send the message to the connected nodes
-            Task<List<Node>> nodeListTask = Wearable.getNodeClient(MainActivity.this).getConnectedNodes();
+            Task<List<Node>> nodeListTask = Wearable.getNodeClient(WeatherFetchActivity.this).getConnectedNodes();
             nodeListTask.addOnSuccessListener(nodes -> {
                 if (nodes.isEmpty()) {
-                    Toast.makeText(MainActivity.this, "No connected wearable device found.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WeatherFetchActivity.this, "No connected wearable device found.", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 for (Node node : nodes) {
                     Task<Integer> sendMessageTask =
-                            Wearable.getMessageClient(MainActivity.this).sendMessage(
+                            Wearable.getMessageClient(WeatherFetchActivity.this).sendMessage(
                                     node.getId(), "/weather_info", message.getBytes());
 
                     sendMessageTask.addOnSuccessListener(integer -> {
-                        Toast.makeText(MainActivity.this, "Message sent to " + node.getDisplayName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WeatherFetchActivity.this, "Message sent to " + node.getDisplayName(), Toast.LENGTH_SHORT).show();
                     });
 
                     sendMessageTask.addOnFailureListener(e -> {
-                        Toast.makeText(MainActivity.this, "Failed to send message", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(WeatherFetchActivity.this, "Failed to send message", Toast.LENGTH_SHORT).show();
                     });
                 }
             });
@@ -136,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             if (!cityName.isEmpty()) {
                 fetchWeatherData(cityName);
             } else {
-                Toast.makeText(MainActivity.this, "Please enter a city name", Toast.LENGTH_SHORT).show();
+                Toast.makeText(WeatherFetchActivity.this, "Please enter a city name", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -178,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     btnFetchWeather.setEnabled(true);
                     btnFetchWeather.setText("Fetch Weather");
-                    Toast.makeText(MainActivity.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WeatherFetchActivity.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
                 });
             }
 
@@ -193,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                     final String responseData = response.body().string();
                     runOnUiThread(() -> parseAndDisplayWeather(responseData));
                 } else {
-                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "City not found", Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(WeatherFetchActivity.this, "City not found", Toast.LENGTH_SHORT).show());
                 }
             }
         });
