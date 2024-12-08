@@ -20,6 +20,7 @@ import com.google.android.gms.wearable.Wearable;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,12 +71,28 @@ public class MainActivity extends AppCompatActivity {
                     // Get the weather data from the intent
                     String weatherData = intent.getStringExtra(MessageWeatherListener.EXTRA_WEATHER_DATA);
                     // Update the UI
-                    binding.welcomeText.setText(weatherData);
+//                    binding.welcomeText.setText(weatherData);
+                    setAdapter(weatherData);
                 }
             }
         };
     }
 
+
+    private void setAdapter(String weatherData) {
+
+        // Split the text by '$'
+        String[] items = weatherData.split("\\$");
+// Sort in a case-insensitive manner
+        Arrays.sort(items, String.CASE_INSENSITIVE_ORDER);
+        // Set the LayoutManager (LinearLayout in this case)
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Create and set the Adapter
+        com.example.finalproject.MyAdapter adapter = new com.example.finalproject.MyAdapter(items);
+        binding.imageView2.setVisibility(View.GONE);
+        binding.recyclerView.setAdapter(adapter);
+    }
     @Override
     protected void onResume() {
         super.onResume();

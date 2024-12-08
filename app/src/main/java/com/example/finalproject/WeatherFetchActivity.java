@@ -98,7 +98,7 @@ public class WeatherFetchActivity extends AppCompatActivity {
                 selectedAttributes.append(title.getText().toString())
                         .append(": ")
                         .append(value.getText().toString())
-                        .append("\n");
+                        .append("\n$");
             }
 
             String message = selectedAttributes.toString();
