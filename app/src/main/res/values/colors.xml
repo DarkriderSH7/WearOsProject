@@ -11,7 +11,8 @@
     <color name="gray">#757575</color>
 
     <!-- Selected Tile Color -->
-    <color name="selected_tile">#3700B3</color> <!-- Light Gray for Selection -->
+    <color name="selected_tile">#3700B3</color>
+    <color name="light_blue">#ADD8E6</color> <!-- Light Gray for Selection -->
 
     <!-- Add more colors as needed -->
 </resources>

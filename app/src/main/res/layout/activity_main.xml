@@ -3,7 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="@dimen/_16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,31 +15,31 @@
             android:id="@+id/et_city_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter City Name"
-            android:padding="12dp"
+            android:hint="@string/enter_city_name"
+            android:padding="@dimen/_12dp"
             android:background="@drawable/edit_text_background"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="@dimen/_16dp" />
 
         <Button
             android:id="@+id/btn_fetch_weather"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fetch Weather"
+            android:text="@string/fetch_weather"
             android:backgroundTint="@color/purple_500"
             android:textColor="@color/white"
-            android:padding="12dp"
-            android:layout_marginBottom="24dp" />
+            android:padding="@dimen/_12dp"
+            android:layout_marginBottom="@dimen/_24dp" />
 
         <!-- Weather Information Section -->
         <TextView
             android:id="@+id/tv_city_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="City: "
-            android:textSize="20sp"
+            android:text="@string/city"
+            android:textSize="@dimen/_20sp"
             android:textStyle="bold"
             android:textColor="@color/purple_500"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="@dimen/_16dp" />
 
         <!-- GridLayout for Weather Attributes -->
         <GridLayout
@@ -55,12 +55,12 @@
             <!-- Description Tile -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_description"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                card_view:cardCornerRadius="8dp"
-                card_view:cardElevation="4dp"
+                card_view:cardCornerRadius="@dimen/_8dp"
+                card_view:cardElevation="@dimen/_4dp"
                 android:clickable="true"
                 android:focusable="true"
                 card_view:cardBackgroundColor="@color/white"
@@ -70,14 +70,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16dp">
 
                     <TextView
                         android:id="@+id/tv_weather_description_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Description"
-                        android:textSize="16sp"
+                        android:text="@string/description"
+                        android:textSize="@dimen/_16sp"
                         android:textStyle="bold"
                         android:textColor="@color/purple_500" />
 
@@ -86,9 +86,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="N/A"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/_14sp"
                         android:textColor="@color/black"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="@dimen/_4dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -99,8 +99,8 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                card_view:cardCornerRadius="8dp"
-                card_view:cardElevation="4dp"
+                card_view:cardCornerRadius="@dimen/_8dp"
+                card_view:cardElevation="@dimen/_4dp"
                 android:clickable="true"
                 android:focusable="true"
                 card_view:cardBackgroundColor="@color/white"
@@ -110,14 +110,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16dp">
 
                     <TextView
                         android:id="@+id/tv_weather_temperature_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Temperature"
-                        android:textSize="16sp"
+                        android:text="@string/temperature"
+                        android:textSize="@dimen/_16sp"
                         android:textStyle="bold"
                         android:textColor="@color/purple_500" />
 
@@ -125,22 +125,22 @@
                         android:id="@+id/tv_weather_temperature"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="N/A"
-                        android:textSize="14sp"
+                        android:text="@string/n_a"
+                        android:textSize="@dimen/_14sp"
                         android:textColor="@color/black"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="@dimen/_4dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Pressure Tile -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_pressure"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                card_view:cardCornerRadius="8dp"
-                card_view:cardElevation="4dp"
+                card_view:cardCornerRadius="@dimen/_8dp"
+                card_view:cardElevation="@dimen/_4dp"
                 android:clickable="true"
                 android:focusable="true"
                 card_view:cardBackgroundColor="@color/white"
@@ -150,14 +150,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16dp">
 
                     <TextView
                         android:id="@+id/tv_weather_pressure_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pressure"
-                        android:textSize="16sp"
+                        android:text="@string/pressure"
+                        android:textSize="@dimen/_16sp"
                         android:textStyle="bold"
                         android:textColor="@color/purple_500" />
 
@@ -165,8 +165,8 @@
                         android:id="@+id/tv_weather_pressure"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="N/A"
-                        android:textSize="14sp"
+                        android:text="@string/n_a"
+                        android:textSize="@dimen/_16sp"
                         android:textColor="@color/black"
                         android:layout_marginTop="4dp" />
                 </LinearLayout>
@@ -175,12 +175,12 @@
             <!-- Humidity Tile -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_humidity"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/_0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_rowWeight="1"
-                card_view:cardCornerRadius="8dp"
-                card_view:cardElevation="4dp"
+                card_view:cardCornerRadius="@dimen/_8dp"
+                card_view:cardElevation="@dimen/_4dp"
                 android:clickable="true"
                 android:focusable="true"
                 card_view:cardBackgroundColor="@color/white"
@@ -190,14 +190,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16dp">
 
                     <TextView
                         android:id="@+id/tv_weather_humidity_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Humidity"
-                        android:textSize="16sp"
+                        android:text="@string/humidity"
+                        android:textSize="@dimen/_16sp"
                         android:textStyle="bold"
                         android:textColor="@color/purple_500" />
 
@@ -205,7 +205,7 @@
                         android:id="@+id/tv_weather_humidity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="N/A"
+                        android:text="@string/n_a"
                         android:textSize="14sp"
                         android:textColor="@color/black"
                         android:layout_marginTop="4dp" />
@@ -236,7 +236,7 @@
                         android:id="@+id/tv_weather_wind_speed_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wind Speed"
+                        android:text="@string/wind_speed"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/purple_500" />
@@ -245,7 +245,7 @@
                         android:id="@+id/tv_weather_wind_speed"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="N/A"
+                        android:text="@string/n_a"
                         android:textSize="14sp"
                         android:textColor="@color/black"
                         android:layout_marginTop="4dp" />
@@ -276,7 +276,7 @@
                         android:id="@+id/tv_weather_precipitation_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Precipitation"
+                        android:text="@string/precipitation"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/purple_500" />
@@ -285,8 +285,8 @@
                         android:id="@+id/tv_weather_precipitation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="N/A"
-                        android:textSize="14sp"
+                        android:text="@string/n_a"
+                        android:textSize="@dimen/_14sp"
                         android:textColor="@color/black"
                         android:layout_marginTop="4dp" />
                 </LinearLayout>
@@ -299,11 +299,11 @@
             android:id="@+id/btn_send_to_watch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Send these to the watch"
+            android:text="@string/send_these_to_the_watch"
             android:backgroundTint="@color/purple_500"
             android:textColor="@color/white"
-            android:padding="12dp"
-            android:layout_marginTop="24dp" />
+            android:padding="@dimen/_12dp"
+            android:layout_marginTop="@dimen/_24dp" />
 
     </LinearLayout>
 </ScrollView>
