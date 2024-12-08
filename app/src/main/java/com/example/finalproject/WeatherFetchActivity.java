@@ -52,7 +52,7 @@ public class WeatherFetchActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Initialize CardViews (ensure these IDs exist in your activity_main.xml or corresponding layout)
+        // Initialize CardViews
         cardDescription = findViewById(R.id.card_description);
         cardTemperature = findViewById(R.id.card_temperature);
         cardPressure = findViewById(R.id.card_pressure);
@@ -146,11 +146,53 @@ public class WeatherFetchActivity extends AppCompatActivity {
         if (selectedCards.contains(card)) {
             // Deselect the card
             card.setCardBackgroundColor(ContextCompat.getColor(this, R.color.white));
+            updateCardTextColor(card, false);
             selectedCards.remove(card);
         } else {
             // Select the card
-            card.setCardBackgroundColor(ContextCompat.getColor(this, R.color.selected_tile));
+            card.setCardBackgroundColor(ContextCompat.getColor(this, R.color.light_blue));
+            updateCardTextColor(card, true);
             selectedCards.add(card);
+        }
+    }
+
+    /**
+     * Updates the text color of the CardView's TextViews.
+     *
+     * @param card The CardView whose text colors are to be updated.
+     * @param isSelected Whether the card is selected.
+     */
+    private void updateCardTextColor(CardView card, boolean isSelected) {
+        if (card == cardDescription) {
+            TextView title = card.findViewById(R.id.tv_weather_description_title);
+            TextView value = card.findViewById(R.id.tv_weather_description);
+            title.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.purple_500));
+            value.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.black));
+        } else if (card == cardTemperature) {
+            TextView title = card.findViewById(R.id.tv_weather_temperature_title);
+            TextView value = card.findViewById(R.id.tv_weather_temperature);
+            title.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.purple_500));
+            value.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.black));
+        } else if (card == cardPressure) {
+            TextView title = card.findViewById(R.id.tv_weather_pressure_title);
+            TextView value = card.findViewById(R.id.tv_weather_pressure);
+            title.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.purple_500));
+            value.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.black));
+        } else if (card == cardHumidity) {
+            TextView title = card.findViewById(R.id.tv_weather_humidity_title);
+            TextView value = card.findViewById(R.id.tv_weather_humidity);
+            title.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.purple_500));
+            value.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.black));
+        } else if (card == cardWindSpeed) {
+            TextView title = card.findViewById(R.id.tv_weather_wind_speed_title);
+            TextView value = card.findViewById(R.id.tv_weather_wind_speed);
+            title.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.purple_500));
+            value.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.black));
+        } else if (card == cardPrecipitation) {
+            TextView title = card.findViewById(R.id.tv_weather_precipitation_title);
+            TextView value = card.findViewById(R.id.tv_weather_precipitation);
+            title.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.purple_500));
+            value.setTextColor(isSelected ? ContextCompat.getColor(this, R.color.white) : ContextCompat.getColor(this, R.color.black));
         }
     }
 
