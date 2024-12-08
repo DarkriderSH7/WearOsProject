@@ -16,19 +16,24 @@ import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 
 public class MessageWeatherListener extends WearableListenerService {
+    public static final String ACTION_WEATHER_UPDATE = "com.example.finalproject.ACTION_WEATHER_UPDATE";
+    public static final String EXTRA_WEATHER_DATA = "weather_data";
 
     @Override
     public void onMessageReceived(@NonNull MessageEvent messageEvent) {
         if (messageEvent.getPath().equals("/weather_info")) {
-            // Message received
             String message = new String(messageEvent.getData());
-            // Display a notification stating that info has been received
             displayNotification(message);
+
+            // Send a local broadcast with the received message
+            android.content.Intent intent = new android.content.Intent(ACTION_WEATHER_UPDATE);
+            intent.putExtra(EXTRA_WEATHER_DATA, message);
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         }
     }
 
     private void displayNotification(String message) {
-        // Build and display a notification
+        // Your existing notification code remains the same
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "weather_channel")
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle("Weather Info Received")
@@ -38,20 +43,15 @@ public class MessageWeatherListener extends WearableListenerService {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
-        // Create notification channel if necessary (for API 26+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel("weather_channel", "Weather Notifications", NotificationManager.IMPORTANCE_HIGH);
             notificationManager.createNotificationChannel(channel);
         }
 
-        // Check for POST_NOTIFICATIONS permission before notifying
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                        == PackageManager.PERMISSION_GRANTED) {
-            // Show the notification
+                ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
             notificationManager.notify(1, builder.build());
         } else {
-            // Permission not granted, cannot show notification
             Toast.makeText(this, "Cannot show notification without POST_NOTIFICATIONS permission.", Toast.LENGTH_SHORT).show();
         }
     }

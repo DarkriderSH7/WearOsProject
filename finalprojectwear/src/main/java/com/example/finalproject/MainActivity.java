@@ -1,5 +1,9 @@
 package com.example.finalproject;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_POST_NOTIFICATIONS = 1;
     ActivityMainBinding binding;
+    private BroadcastReceiver weatherUpdateReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Handle edge-to-edge display by adjusting padding based on system window insets
+        // Handle edge-to-edge display
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -53,17 +58,34 @@ public class MainActivity extends AppCompatActivity {
                         REQUEST_CODE_POST_NOTIFICATIONS);
             }
         }
+
+        // Initialize the BroadcastReceiver
+        weatherUpdateReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (MessageWeatherListener.ACTION_WEATHER_UPDATE.equals(intent.getAction())) {
+                    // Get the weather data from the intent
+                    String weatherData = intent.getStringExtra(MessageWeatherListener.EXTRA_WEATHER_DATA);
+                    // Update the UI
+                    binding.welcomeText.setText(weatherData);
+                }
+            }
+        };
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        Wearable.getMessageClient(this).addListener(MessageWeatherListener.class);
+        // Register the receiver
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this)
+                .registerReceiver(weatherUpdateReceiver, new IntentFilter(MessageWeatherListener.ACTION_WEATHER_UPDATE));
     }
 
     @Override
     protected void onPause() {
-//        Wearable.getMessageClient(this).removeListener(this);
+        // Unregister the receiver
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(this)
+                .unregisterReceiver(weatherUpdateReceiver);
         super.onPause();
     }
 
@@ -73,9 +95,8 @@ public class MainActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_POST_NOTIFICATIONS) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted; you can proceed with displaying notifications
+                // Permission granted
             } else {
-                // Permission denied; inform the user that notifications won't be shown
                 Toast.makeText(this, "Permission denied to post notifications.", Toast.LENGTH_SHORT).show();
             }
         }

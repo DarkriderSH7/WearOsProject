@@ -37,12 +37,36 @@ public class WeatherFetchActivity extends AppCompatActivity {
     private final String API_KEY = "8048ad7b856423eff0e08e7df8062a9d";
     private final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
 
+    // Declare card references
+    private CardView cardDescription;
+    private CardView cardTemperature;
+    private CardView cardPressure;
+    private CardView cardHumidity;
+    private CardView cardWindSpeed;
+    private CardView cardPrecipitation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Initialize CardViews (ensure these IDs exist in your activity_main.xml or corresponding layout)
+        cardDescription = findViewById(R.id.card_description);
+        cardTemperature = findViewById(R.id.card_temperature);
+        cardPressure = findViewById(R.id.card_pressure);
+        cardHumidity = findViewById(R.id.card_humidity);
+        cardWindSpeed = findViewById(R.id.card_wind_speed);
+        cardPrecipitation = findViewById(R.id.card_precipitation);
+
+        // Set OnClickListeners for card selection
+        cardDescription.setOnClickListener(v -> handleCardSelection(cardDescription));
+        cardTemperature.setOnClickListener(v -> handleCardSelection(cardTemperature));
+        cardPressure.setOnClickListener(v -> handleCardSelection(cardPressure));
+        cardHumidity.setOnClickListener(v -> handleCardSelection(cardHumidity));
+        cardWindSpeed.setOnClickListener(v -> handleCardSelection(cardWindSpeed));
+        cardPrecipitation.setOnClickListener(v -> handleCardSelection(cardPrecipitation));
 
         // Set OnClickListener for "Send to Watch" Button
         binding.btnSendToWatch.setOnClickListener(v -> {
@@ -55,21 +79,22 @@ public class WeatherFetchActivity extends AppCompatActivity {
             StringBuilder selectedAttributes = new StringBuilder();
             for (CardView card : selectedCards) {
                 TextView title = card.findViewById(
-                        card.getId() == R.id.card_description ? R.id.tv_weather_description_title :
-                                card.getId() == R.id.card_temperature ? R.id.tv_weather_temperature_title :
-                                        card.getId() == R.id.card_pressure ? R.id.tv_weather_pressure_title :
-                                                card.getId() == R.id.card_humidity ? R.id.tv_weather_humidity_title :
-                                                        card.getId() == R.id.card_wind_speed ? R.id.tv_weather_wind_speed_title :
+                        card == cardDescription ? R.id.tv_weather_description_title :
+                                card == cardTemperature ? R.id.tv_weather_temperature_title :
+                                        card == cardPressure ? R.id.tv_weather_pressure_title :
+                                                card == cardHumidity ? R.id.tv_weather_humidity_title :
+                                                        card == cardWindSpeed ? R.id.tv_weather_wind_speed_title :
                                                                 R.id.tv_weather_precipitation_title
                 );
                 TextView value = card.findViewById(
-                        card.getId() == R.id.card_description ? R.id.tv_weather_description :
-                                card.getId() == R.id.card_temperature ? R.id.tv_weather_temperature :
-                                        card.getId() == R.id.card_pressure ? R.id.tv_weather_pressure :
-                                                card.getId() == R.id.card_humidity ? R.id.tv_weather_humidity :
-                                                        card.getId() == R.id.card_wind_speed ? R.id.tv_weather_wind_speed :
+                        card == cardDescription ? R.id.tv_weather_description :
+                                card == cardTemperature ? R.id.tv_weather_temperature :
+                                        card == cardPressure ? R.id.tv_weather_pressure :
+                                                card == cardHumidity ? R.id.tv_weather_humidity :
+                                                        card == cardWindSpeed ? R.id.tv_weather_wind_speed :
                                                                 R.id.tv_weather_precipitation
                 );
+
                 selectedAttributes.append(title.getText().toString())
                         .append(": ")
                         .append(value.getText().toString())
@@ -184,7 +209,7 @@ public class WeatherFetchActivity extends AppCompatActivity {
             int humidity = jsonObject.getAsJsonObject("main").get("humidity").getAsInt();
             double windSpeed = jsonObject.getAsJsonObject("wind").get("speed").getAsDouble();
 
-            // Precipitation might be under "rain" or "snow" depending on the weather condition
+            // Precipitation might be under "rain" or "snow"
             String precipitation = "N/A";
             if (jsonObject.has("rain")) {
                 JsonObject rain = jsonObject.getAsJsonObject("rain");
