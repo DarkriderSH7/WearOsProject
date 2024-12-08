@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.finalproject.databinding.ActivityMainBinding;
 import com.google.android.gms.wearable.MessageClient;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.Wearable;
@@ -24,14 +25,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class MainActivity extends AppCompatActivity implements MessageClient.OnMessageReceivedListener {
+public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_POST_NOTIFICATIONS = 1;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Handle edge-to-edge display by adjusting padding based on system window insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -54,52 +58,13 @@ public class MainActivity extends AppCompatActivity implements MessageClient.OnM
     @Override
     protected void onResume() {
         super.onResume();
-        Wearable.getMessageClient(this).addListener(this);
+//        Wearable.getMessageClient(this).addListener(MessageWeatherListener.class);
     }
 
     @Override
     protected void onPause() {
-        Wearable.getMessageClient(this).removeListener(this);
+//        Wearable.getMessageClient(this).removeListener(this);
         super.onPause();
-    }
-
-    @Override
-    public void onMessageReceived(@NonNull MessageEvent messageEvent) {
-        if (messageEvent.getPath().equals("/weather_info")) {
-            // Message received
-            String message = new String(messageEvent.getData());
-            // Display a notification stating that info has been received
-            displayNotification(message);
-        }
-    }
-
-    private void displayNotification(String message) {
-        // Build and display a notification
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "weather_channel")
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle("Weather Info Received")
-                .setContentText("Tap to view details")
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-
-        // Create notification channel if necessary (for API 26+)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel("weather_channel", "Weather Notifications", NotificationManager.IMPORTANCE_HIGH);
-            notificationManager.createNotificationChannel(channel);
-        }
-
-        // Check for POST_NOTIFICATIONS permission before notifying
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                        == PackageManager.PERMISSION_GRANTED) {
-            // Show the notification
-            notificationManager.notify(1, builder.build());
-        } else {
-            // Permission not granted, cannot show notification
-            Toast.makeText(this, "Cannot show notification without POST_NOTIFICATIONS permission.", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override

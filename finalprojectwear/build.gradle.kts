@@ -30,6 +30,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    buildFeatures {
+        viewBinding = true;
+    }
+
     // Uncomment if using Kotlin
     // kotlinOptions {
     //     jvmTarget = "11"

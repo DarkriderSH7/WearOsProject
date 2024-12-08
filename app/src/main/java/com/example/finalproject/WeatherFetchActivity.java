@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 
+import com.example.finalproject.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.Wearable;
@@ -28,53 +29,23 @@ import java.util.List;
 import java.util.Set;
 
 public class WeatherFetchActivity extends AppCompatActivity {
-    private EditText etCityName;
-    private Button btnFetchWeather, btnSendToWatch;
-    private TextView tvCityName, tvWeatherDescription, tvWeatherTemperature, tvWeatherPressure;
-    private TextView tvWeatherHumidity, tvWeatherWindSpeed, tvWeatherPrecipitation;
+    ActivityMainBinding binding;
 
     // Set to hold all selected CardViews
     private Set<CardView> selectedCards = new HashSet<>();
 
-    private final String API_KEY = "8048ad7b856423eff0e08e7df8062a9d"; // Replace with your API key
+    private final String API_KEY = "8048ad7b856423eff0e08e7df8062a9d";
     private final String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
-
-        // Initialize UI components
-        etCityName = findViewById(R.id.et_city_name);
-        btnFetchWeather = findViewById(R.id.btn_fetch_weather);
-        btnSendToWatch = findViewById(R.id.btn_send_to_watch);
-        tvCityName = findViewById(R.id.tv_city_name);
-        tvWeatherDescription = findViewById(R.id.tv_weather_description);
-        tvWeatherTemperature = findViewById(R.id.tv_weather_temperature);
-        tvWeatherPressure = findViewById(R.id.tv_weather_pressure);
-        tvWeatherHumidity = findViewById(R.id.tv_weather_humidity);
-        tvWeatherWindSpeed = findViewById(R.id.tv_weather_wind_speed);
-        tvWeatherPrecipitation = findViewById(R.id.tv_weather_precipitation);
-
-        // Initialize CardViews
-        CardView cardDescription = findViewById(R.id.card_description);
-        CardView cardTemperature = findViewById(R.id.card_temperature);
-        CardView cardPressure = findViewById(R.id.card_pressure);
-        CardView cardHumidity = findViewById(R.id.card_humidity);
-        CardView cardWindSpeed = findViewById(R.id.card_wind_speed);
-        CardView cardPrecipitation = findViewById(R.id.card_precipitation);
-
-        // Set OnClickListener for each CardView
-        cardDescription.setOnClickListener(v -> handleCardSelection(cardDescription));
-        cardTemperature.setOnClickListener(v -> handleCardSelection(cardTemperature));
-        cardPressure.setOnClickListener(v -> handleCardSelection(cardPressure));
-        cardHumidity.setOnClickListener(v -> handleCardSelection(cardHumidity));
-        cardWindSpeed.setOnClickListener(v -> handleCardSelection(cardWindSpeed));
-        cardPrecipitation.setOnClickListener(v -> handleCardSelection(cardPrecipitation));
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         // Set OnClickListener for "Send to Watch" Button
-        btnSendToWatch.setOnClickListener(v -> {
+        binding.btnSendToWatch.setOnClickListener(v -> {
             if (selectedCards.isEmpty()) {
                 Toast.makeText(WeatherFetchActivity.this, "No attributes selected to send.", Toast.LENGTH_SHORT).show();
                 return;
@@ -130,8 +101,8 @@ public class WeatherFetchActivity extends AppCompatActivity {
             });
         });
 
-        btnFetchWeather.setOnClickListener(v -> {
-            String cityName = etCityName.getText().toString().trim();
+        binding.btnFetchWeather.setOnClickListener(v -> {
+            String cityName = binding.etCityName.getText().toString().trim();
             if (!cityName.isEmpty()) {
                 fetchWeatherData(cityName);
             } else {
@@ -167,16 +138,16 @@ public class WeatherFetchActivity extends AppCompatActivity {
                 .build();
 
         // Show a loading indicator
-        btnFetchWeather.setEnabled(false);
-        btnFetchWeather.setText("Fetching...");
+        binding.btnFetchWeather.setEnabled(false);
+        binding.btnFetchWeather.setText("Fetching...");
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
                 runOnUiThread(() -> {
-                    btnFetchWeather.setEnabled(true);
-                    btnFetchWeather.setText("Fetch Weather");
+                    binding.btnFetchWeather.setEnabled(true);
+                    binding.btnFetchWeather.setText("Fetch Weather");
                     Toast.makeText(WeatherFetchActivity.this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
                 });
             }
@@ -184,8 +155,8 @@ public class WeatherFetchActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 runOnUiThread(() -> {
-                    btnFetchWeather.setEnabled(true);
-                    btnFetchWeather.setText("Fetch Weather");
+                    binding.btnFetchWeather.setEnabled(true);
+                    binding.btnFetchWeather.setText("Fetch Weather");
                 });
 
                 if (response.isSuccessful()) {
@@ -232,13 +203,13 @@ public class WeatherFetchActivity extends AppCompatActivity {
             }
 
             // Update UI with fetched data
-            tvCityName.setText("City: " + cityName);
-            tvWeatherDescription.setText(capitalizeFirstLetter(weatherDescription));
-            tvWeatherTemperature.setText(String.format("%.1f°C", temperature));
-            tvWeatherPressure.setText(pressure + " hPa");
-            tvWeatherHumidity.setText(humidity + "%");
-            tvWeatherWindSpeed.setText(windSpeed + " m/s");
-            tvWeatherPrecipitation.setText(precipitation);
+            binding.tvCityName.setText("City: " + cityName);
+            binding.tvWeatherDescription.setText(capitalizeFirstLetter(weatherDescription));
+            binding.tvWeatherTemperature.setText(String.format("%.1f°C", temperature));
+            binding.tvWeatherPressure.setText(pressure + " hPa");
+            binding.tvWeatherHumidity.setText(humidity + "%");
+            binding.tvWeatherWindSpeed.setText(windSpeed + " m/s");
+            binding.tvWeatherPrecipitation.setText(precipitation);
 
         } catch (Exception e) {
             e.printStackTrace();
