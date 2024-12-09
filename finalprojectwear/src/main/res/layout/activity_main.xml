@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="25dp"
     tools:context="activity.MainActivity"
     tools:ignore="MissingClass">
 
@@ -14,27 +13,6 @@
         android:layout_height="match_parent"
         android:background="@drawable/gradient_background"
         tools:context=".activity.MainActivity">
-
-        <!--    <ScrollView-->
-        <!--        android:id="@+id/scroll_view"-->
-        <!--        android:layout_width="0dp"-->
-        <!--        android:layout_height="0dp"-->
-        <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--        app:layout_constraintTop_toTopOf="parent"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        android:padding="16dp">-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/welcome_text"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="Group Assignment"-->
-        <!--            android:textSize="18sp"-->
-        <!--            android:padding="8dp"/>-->
-
-        <!--    </ScrollView>-->
-
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

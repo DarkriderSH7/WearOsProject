@@ -177,7 +177,7 @@ public class WeatherFetchActivity extends AppCompatActivity {
      */
     private void fetchWeatherData(String cityName) {
         // Call to fetch data
-        weatherRepository.fetchWeatherData("London", new WeatherRepository.WeatherCallback() {
+        weatherRepository.fetchWeatherData(cityName, new WeatherRepository.WeatherCallback() {
             @Override
             public void onSuccess(WeatherData weatherData) {
                 runOnUiThread(new Runnable() {

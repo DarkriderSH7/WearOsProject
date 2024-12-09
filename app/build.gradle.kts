@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    alias(libs.plugins.android.application)
 }
 
 android {
@@ -37,32 +37,23 @@ android {
 
 dependencies {
     // Google Play Services dependencies
-    implementation("com.google.android.gms:play-services-tasks:18.0.2") {
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib-jdk8")
-    }
-    implementation("com.google.android.gms:play-services-wearable:18.0.0") {
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib-jdk8")
-    }
+    implementation(libs.play.services.tasks)
+    implementation(libs.play.services.wearable.v1800)
 
     // OkHttp (which may pull in Kotlin dependencies)
-    implementation("com.squareup.okhttp3:okhttp:4.10.0") {
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib")
-        exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib-jdk8")
-    }
+    implementation(libs.okhttp)
 
     // Other dependencies
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.activity:activity:1.7.2")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(libs.appcompat.v161)
+    implementation(libs.material.v190)
+    implementation(libs.activity.v172)
+    implementation(libs.constraintlayout.v214)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.v115)
+    androidTestImplementation(libs.espresso.core.v351)
 
     // Additional dependencies
-    implementation("com.google.code.gson:gson:2.10")
+    implementation(libs.gson)
 
 
 }
