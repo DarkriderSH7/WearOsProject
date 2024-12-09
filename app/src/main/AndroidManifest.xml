@@ -23,7 +23,7 @@
 
 
         <activity
-            android:name=".WeatherFetchActivity"
+            android:name=".activity.WeatherFetchActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

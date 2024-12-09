@@ -21,6 +21,7 @@ import com.google.android.gms.wearable.Wearable;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     // Configure the RecyclerView with weather data
     private void setAdapter(String weatherData) {
         // Split the weather data string by '$'
-        String[] items = weatherData.split("\\$");
+        String[] items = weatherData.trim().split("\\$");
 
         // Sort the items alphabetically (case-insensitive)
         Arrays.sort(items, String.CASE_INSENSITIVE_ORDER);
@@ -119,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         // Attach the adapter to the RecyclerView
         binding.recyclerView.setAdapter(adapter);
     }
+
 
     @Override
     protected void onResume() {
