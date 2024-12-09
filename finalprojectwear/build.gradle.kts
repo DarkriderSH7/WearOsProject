@@ -63,6 +63,7 @@ dependencies {
     }
     // Add Kotlin stdlib for Wear OS
     implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.8.10")
+    implementation(libs.wear)
     // Add any other dependencies required for your Wear OS app
 }
 
